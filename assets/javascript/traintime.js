@@ -22,7 +22,7 @@ $("#add-train-btn").on("click", function(event) {
   var destination = $("#destination-input").val().trim();
   var firstTrain =$("#first-train-input").val().trim();
   var frequency = $("#frequency-input").val().trim();
-  var bikeAllowed = $("#bike-input").val().trim();
+  var type = $("#type-input").val().trim();
 
   // Creates local "temporary" object for holding train data  ===================================
   var newEmp = {
@@ -30,7 +30,7 @@ $("#add-train-btn").on("click", function(event) {
     dest: destination,
     start: firstTrain,
     freq: frequency,
-    bike: bikeAllowed
+    type: type
   };
 
   // Uploads train data to the database ======================================================================
@@ -41,16 +41,16 @@ $("#add-train-btn").on("click", function(event) {
   console.log(newEmp.dest);
   console.log(newEmp.start);
   console.log(newEmp.freq);
-  console.log(newEmp.bike);
+  console.log(newEmp.type);
 
-  alert("Employee successfully added");
+  alert("Train successfully added");
 
   // Clears all of the text-boxes ======================================================================
   $("#train-name-input").val("");
   $("#destination-input").val("");
   $("#first-train-input").val("");
   $("#frequency-input").val("");
-  $("#bike-input").val("");
+  $("#type-input").val("");
 });
 
 // 3. Create Firebase event for adding Train info to the database and a row in the html when a user adds an entry
@@ -62,7 +62,7 @@ database.ref().on("child_added", function(childSnapshot) {
   var destination = childSnapshot.val().dest;
   var firstTrain  = childSnapshot.val().start;
   var frequency  = childSnapshot.val().freq;
-  var bikeAllowed = childSnapshot.val().bike;
+  var type = childSnapshot.val().type;
 
 
   // Train Info to console log ======================================================================
@@ -70,7 +70,7 @@ database.ref().on("child_added", function(childSnapshot) {
   console.log(destination);
   console.log(firstTrain);
   console.log(frequency);
-  console.log(bikeAllowed);
+  console.log(type);
 
 
   // 4. Calculate train times using moment.js.  =================================================
@@ -107,7 +107,7 @@ database.ref().on("child_added", function(childSnapshot) {
     $("<td>").text(frequency),
     $("<td>").text(nextTrain),
     $("<td>").text(tMinutesTillTrain),
-    $("<td>").text(bikeAllowed)
+    $("<td>").text(type)
   );
 
   // Append the new row to the table  ======================================================================
